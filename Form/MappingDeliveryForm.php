@@ -53,13 +53,13 @@ class MappingDeliveryForm extends BaseForm
         $results = [];
 
         foreach ($deliveryModules as $deliveryModule) {
-            $results[$deliveryModule->getId()] = $deliveryModule->getTitle();
+            $results[$deliveryModule->getTitle()] = $deliveryModule->getId();
         }
 
         return $results;
     }
 
-    public function getName()
+    public static function getName()
     {
         return "shoppingfeed_mapping_delivery_form";
     }

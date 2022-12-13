@@ -14,6 +14,7 @@ namespace ShoppingFeed;
 
 use Propel\Runtime\Connection\ConnectionInterface;
 use ShoppingFeed\Model\ShoppingfeedFeedQuery;
+use Symfony\Component\DependencyInjection\Loader\Configurator\ServicesConfigurator;
 use Symfony\Component\Finder\Finder;
 use Thelia\Install\Database;
 use Thelia\Model\Customer;
@@ -33,7 +34,7 @@ class ShoppingFeed extends AbstractPaymentModule
      * @param ConnectionInterface|null $con
      * @throws \Propel\Runtime\Exception\PropelException
      */
-    public function postActivation(ConnectionInterface $con = null)
+    public function postActivation(ConnectionInterface $con = null): void
     {
         // Once activated, create the module schema in the Thelia database.
         $database = new Database($con);
@@ -47,7 +48,7 @@ class ShoppingFeed extends AbstractPaymentModule
         }
     }
 
-    public function update($currentVersion, $newVersion, ConnectionInterface $con = null)
+    public function update($currentVersion, $newVersion, ConnectionInterface $con = null): void
     {
         $finder = Finder::create()
             ->name('*.sql')
@@ -66,13 +67,23 @@ class ShoppingFeed extends AbstractPaymentModule
     }
 
     public function pay(Order $order)
-    {}
+    {
+    }
 
     public function isValidPayment()
-    {}
+    {
+    }
 
     public function manageStockOnCreation()
     {
         return true;
+    }
+
+    public static function configureServices(ServicesConfigurator $servicesConfigurator): void
+    {
+        $servicesConfigurator->load(self::getModuleCode() . '\\', __DIR__)
+            ->exclude([THELIA_MODULE_DIR . ucfirst(self::getModuleCode()) . "/I18n/*"])
+            ->autowire(true)
+            ->autoconfigure(true);
     }
 }

@@ -14,55 +14,10 @@
         <command class="ShoppingFeed\Command\SynchronizeOrderCommand" />
     </commands>
 
-    <services>
-        <!-- Services -->
-        <service id="shopping_feed_feed_service" class="ShoppingFeed\Service\FeedService">
-            <argument type="service" id="event_dispatcher" />
-            <argument type="service" id="shopping_feed_log_service" />
-        </service>
-        <service id="shopping_feed_api_service" class="ShoppingFeed\Service\ApiService">
-        </service>
-        <service id="shopping_feed_log_service" class="ShoppingFeed\Service\LogService">
-        </service>
-        <service id="shopping_feed_mapping_delivery_service" class="ShoppingFeed\Service\MappingDeliveryService">
-        </service>
-        <service id="shopping_feed_order_service" class="ShoppingFeed\Service\OrderService">
-            <argument type="service" id="event_dispatcher" />
-            <argument type="service" id="shopping_feed_api_service" />
-            <argument type="service" id="shopping_feed_log_service" />
-            <argument type="service" id="shopping_feed_mapping_delivery_service" />
-        </service>
-
-        <!-- Event Listeners -->
-        <service id="shopping_feed_order_status_listener" class="ShoppingFeed\EventListener\OrderStatusUpdateListener">
-            <argument type="service" id="shopping_feed_api_service" />
-            <argument type="service" id="shopping_feed_log_service" />
-            <tag name="kernel.event_subscriber"/>
-        </service>
-        <service id="shopping_feed_price_stock_update_listener" class="ShoppingFeed\EventListener\PriceAndStockUpdateListener">
-            <argument type="service" id="shopping_feed_api_service" />
-            <argument type="service" id="shopping_feed_log_service" />
-            <tag name="kernel.event_subscriber"/>
-        </service>
-
-        <!-- Form Extend -->
-        <service id="shopping_feed_pse_form_extend" class="ShoppingFeed\EventListener\FormExtend\ProductSaleElementsFormExtend">
-            <tag name="kernel.event_subscriber"/>
-        </service>
-        <service id="shopping_feed_product_form_extend" class="ShoppingFeed\EventListener\FormExtend\ProductFormExtend">
-            <tag name="kernel.event_subscriber"/>
-        </service>
-
-        <!-- Loop Extend -->
-        <service id="shopping_feed_module_list_extend" class="ShoppingFeed\EventListener\LoopExtend\ModuleListLoopExtend">
-            <tag name="kernel.event_subscriber"/>
-        </service>
-    </services>
-
     <hooks>
         <hook id="shoppingfeed.module.config.hook" class="ShoppingFeed\Hook\HookManager">
             <tag name="hook.event_listener" type="backoffice" event="hook_home_stats" method="renderLogs"/>
-            <argument type="service" id="shopping_feed_log_service" />
+            <argument type="service" id="ShoppingFeed\Service\LogService" />
             <tag name="hook.event_listener" event="main.head-css" type="back" />
             <tag name="hook.event_listener" event="home.js" type="back" method="renderJs" />
             <tag name="hook.event_listener" event="product.combinations-row" type="back" method="onPseMarketPlaceEdit" />

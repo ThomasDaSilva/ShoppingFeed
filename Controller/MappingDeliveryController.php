@@ -3,6 +3,7 @@
 namespace ShoppingFeed\Controller;
 
 use Propel\Runtime\Map\TableMap;
+use ShoppingFeed\Form\MappingDeliveryForm;
 use ShoppingFeed\Model\ShoppingfeedFeed;
 use ShoppingFeed\Model\ShoppingfeedFeedQuery;
 use ShoppingFeed\Model\ShoppingfeedMappingDelivery;
@@ -16,10 +17,16 @@ use Thelia\Core\Security\AccessManager;
 use Thelia\Core\Security\Resource\AdminResources;
 use Thelia\Core\Translation\Translator;
 use Thelia\Tools\URL;
+use Symfony\Component\Routing\Annotation\Route;
 
-
+/**
+ * @Route("/admin/module/ShoppingFeed/mapping", name="mapping_controller")
+ */
 class MappingDeliveryController extends BaseAdminController
 {
+    /**
+     * @Route("", name="create_mapping", methods="POST")
+     */
     public function createAction()
     {
         if (null !== $response = $this->checkAuth([AdminResources::MODULE], ShoppingFeed::getModuleCode(), AccessManager::VIEW)) {
@@ -52,13 +59,16 @@ class MappingDeliveryController extends BaseAdminController
         return $this->generateSuccessRedirect($form);
     }
 
+    /**
+     * @Route("/{mappingId}", name="update_mapping", methods="POST")
+     */
     public function updateAction($mappingId)
     {
         if (null !== $response = $this->checkAuth([AdminResources::MODULE], ShoppingFeed::getModuleCode(), AccessManager::VIEW)) {
             return $response;
         }
 
-        $form = $this->createForm("shoppingfeed_mapping_delivery_form");
+        $form = $this->createForm(MappingDeliveryForm::getName());
 
         try {
             $data = $this->validateForm($form)->getData();
@@ -88,6 +98,9 @@ class MappingDeliveryController extends BaseAdminController
         return $this->generateSuccessRedirect($form);
     }
 
+    /**
+     * @Route("/delete/{mappingId}", name="delete_mapping")
+     */
     public function deleteAction($mappingId)
     {
         if (null !== $response = $this->checkAuth([AdminResources::MODULE], ShoppingFeed::getModuleCode(), AccessManager::VIEW)) {

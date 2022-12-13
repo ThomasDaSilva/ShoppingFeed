@@ -1,13 +1,13 @@
 {
   "name": "thelia/shopping-feed-module",
   "description": "ShoppingFeed module for Thelia",
-  "license": "LGPL-3.0-or-later",
+  "license": "LGPL-3.0+",
   "type": "thelia-module",
   "require": {
-    "thelia/installer": "~1.1",
-    "shoppingfeed/php-feed-generator": "~1.2",
-    "guzzlehttp/guzzle": "^7.0",
-    "shoppingfeed/php-sdk": "~0.4.1"
+    "../../../vendor/thelia/installer": "~1.1",
+    "../../../vendor/shoppingfeed/php-feed-generator": "~1.2",
+    "../../../vendor/guzzlehttp/guzzle": "^7.0",
+    "../../../vendor/shoppingfeed/php-sdk": "~0.4.1"
   },
   "extra": {
     "installer-name": "ShoppingFeed"

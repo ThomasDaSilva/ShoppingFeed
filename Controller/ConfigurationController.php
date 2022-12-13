@@ -6,11 +6,34 @@ use ShoppingFeed\Model\ShoppingfeedFeedQuery;
 use ShoppingFeed\Model\ShoppingfeedLogQuery;
 use ShoppingFeed\Model\ShoppingfeedMappingDeliveryQuery;
 use ShoppingFeed\Model\ShoppingfeedOrderDataQuery;
+use ShoppingFeed\Service\LogService;
+use ShoppingFeed\Service\MappingDeliveryService;
 use Thelia\Controller\Admin\BaseAdminController;
 use Thelia\Model\ModuleQuery;
+use Symfony\Component\Routing\Annotation\Route;
 
+/**
+ * @Route("/admin/module/ShoppingFeed", name="config_module")
+ */
 class ConfigurationController extends BaseAdminController
 {
+    protected LogService $logService;
+    protected MappingDeliveryService $deliveryService;
+
+    /**
+     * @param LogService $logService
+     * @param MappingDeliveryService $deliveryService
+     */
+    public function __construct(LogService $logService, MappingDeliveryService $deliveryService)
+    {
+        $this->logService = $logService;
+        $this->deliveryService = $deliveryService;
+    }
+
+
+    /**
+     * @Route("", name="view")
+     */
     public function viewAction()
     {
         return $this->render(
@@ -19,7 +42,7 @@ class ConfigurationController extends BaseAdminController
                 "feeds" => ShoppingfeedFeedQuery::create()->find(),
                 "mappings" => ShoppingfeedMappingDeliveryQuery::create()->find(),
                 "missingMappings" => $this->getMissingMappings(),
-                'columnsDefinition' => $this->getContainer()->get('shopping_feed_log_service')->defineColumnsDefinition(),
+                'columnsDefinition' => $this->logService->defineColumnsDefinition(),
             ]
         );
     }
@@ -33,7 +56,7 @@ class ConfigurationController extends BaseAdminController
 
         $results = [];
         foreach ($missingMappings as $missingMapping) {
-            $mappingDeliveryService = $this->getContainer()->get('shopping_feed_mapping_delivery_service');
+            $mappingDeliveryService = $this->deliveryService;
             $deliveryModuleId = $mappingDeliveryService->getDeliveryModuleIdFromCode($missingMapping->getObjectRef());
             if ($deliveryModuleId === 0) {
                 $results[] = $missingMapping->getObjectRef();

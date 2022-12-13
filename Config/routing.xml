@@ -4,36 +4,4 @@
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="http://symfony.com/schema/routing http://symfony.com/schema/routing/routing-1.0.xsd">
 
-
-    <route id="my_route_id" path="/admin/module/ShoppingFeed">
-        <default key="_controller">ShoppingFeed\Controller\ConfigurationController::viewAction</default>
-    </route>
-
-    <route id="ShoppingFeed.feed.configuration.create" path="/admin/module/ShoppingFeed/feed" methods="post">
-        <default key="_controller">ShoppingFeed\Controller\FeedController::createAction</default>
-    </route>
-
-    <route id="ShoppingFeed.feed.configuration.update" path="/admin/module/ShoppingFeed/feed/{feedId}" methods="post">
-        <default key="_controller">ShoppingFeed\Controller\FeedController::updateAction</default>
-    </route>
-
-    <route id="ShoppingFeed.feed.configuration.delete" path="/admin/module/ShoppingFeed/feed/delete/{feedId}">
-        <default key="_controller">ShoppingFeed\Controller\FeedController::deleteAction</default>
-    </route>
-
-    <route id="ShoppingFeed.mapping.delivery.create" path="/admin/module/ShoppingFeed/mapping" methods="post">
-        <default key="_controller">ShoppingFeed\Controller\MappingDeliveryController::createAction</default>
-    </route>
-
-    <route id="ShoppingFeed.mapping.delivery.update" path="/admin/module/ShoppingFeed/mapping/{mappingId}" methods="post">
-        <default key="_controller">ShoppingFeed\Controller\MappingDeliveryController::updateAction</default>
-    </route>
-
-    <route id="ShoppingFeed.mapping.delivery.delete" path="/admin/module/ShoppingFeed/mapping/delete/{mappingId}">
-        <default key="_controller">ShoppingFeed\Controller\MappingDeliveryController::deleteAction</default>
-    </route>
-
-    <route id="ShoppingFeed.feed.logs.view" path="/admin/module/ShoppingFeed/logs/view">
-        <default key="_controller">ShoppingFeed\Controller\LogController::viewAction</default>
-    </route>
 </routes>

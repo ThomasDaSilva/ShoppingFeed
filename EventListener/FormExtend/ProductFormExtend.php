@@ -2,21 +2,15 @@
 
 namespace ShoppingFeed\EventListener\FormExtend;
 
-use CustomerFamily\Model\ProductPurchasePrice;
-use CustomerFamily\Model\ProductPurchasePriceQuery;
 use ShoppingFeed\Model\ShoppingfeedProductMarketplaceCategoryQuery;
-use ShoppingFeed\Model\ShoppingfeedPseMarketplaceQuery;
 use ShoppingFeed\ShoppingFeed;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
-use Symfony\Component\Validator\Constraints;
 use Thelia\Core\Event\TheliaEvents;
 use Thelia\Core\Event\TheliaFormEvent;
 use Thelia\Core\Translation\Translator;
-use Thelia\Model\CategoryQuery;
 
 /**
  * Class ProductFormExtend
